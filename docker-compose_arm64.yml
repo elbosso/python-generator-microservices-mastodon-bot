@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  generator-microservices-mastodon-bot:
+    build: .
+#        ports:
+#        - "80:80"
+    restart: unless-stopped
+    env_file:
+      - environment.env
