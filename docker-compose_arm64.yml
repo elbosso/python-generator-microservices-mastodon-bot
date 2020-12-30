@@ -2,7 +2,11 @@ version: '2'
 
 services:
   generator-microservices-mastodon-bot:
-    build: .
+    build:
+      context: ./ # Local
+      dockerfile: Dockerfile_arm64
+    container_name: generator-microservices-mastodon-bot
+    hostname: generator-microservices-mastodon-bot
 #        ports:
 #        - "80:80"
     restart: unless-stopped
