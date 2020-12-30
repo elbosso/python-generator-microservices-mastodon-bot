@@ -10,6 +10,8 @@ import random
 import time
 import datetime
 from ansi2html import Ansi2HTMLConverter
+import geojsonio
+
 
 # https://shkspr.mobi/blog/2018/08/easy-guide-to-building-mastodon-bots/
 # view files in /tmp: cd /tmp && python -m SimpleHTTPServer 8080
@@ -19,9 +21,11 @@ mastodon = Mastodon(
     ,api_base_url = os.environ['MASTODON_API_BASE_URL']
 )
 shouldIReallyPost=False
+host=os.environ['GENERATOR_MICROSERVICES_HOST']
+port=os.environ['GENERATOR_MICROSERVICES_PORT']
 
 def guruProfessionGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/guruProfession'
+    url = 'http://'+host+':'+port+'/guruProfession'
     response = requests.get(url)
     guruProfession=response.content.decode('utf8',errors='ignore').replace('"', '')
     print(guruProfession)
@@ -31,7 +35,7 @@ def guruProfessionGenerator():
         mastodon.status_post(mastodonmsg)
 
 def clickBaitGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/clickBait'
+    url = 'http://'+host+':'+port+'/clickBait'
     response = requests.get(url)
 
     clickbait=response.content.decode('utf8',errors='ignore').replace('"', '')
@@ -44,7 +48,7 @@ def clickBaitGenerator():
         mastodon.status_post(mastodonmsg)
 
 def creditCardGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/creditCard'
+    url = 'http://'+host+':'+port+'/creditCard'
     response = requests.get(url)
     response.encoding = 'UTF-8'
     resp=response.json()
@@ -56,7 +60,7 @@ def creditCardGenerator():
         mastodon.status_post(mastodonmsg)
 
 def fakeIdentityGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/fakeIdentity'
+    url = 'http://'+host+':'+port+'/fakeIdentity'
     response = requests.get(url)
     response.encoding = 'UTF-8'
     resp=response.json()
@@ -105,7 +109,7 @@ def fakeIdentityGenerator():
     #    mastodon.status_post(chunk)
 
 def coloredBrickMazeImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg'
+    url='http://'+host+':'+port+'/dungeonMazeImg'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -122,7 +126,7 @@ def coloredBrickMazeImgGenerator():
         pass
 
 def coloredMazeImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?ThinWalls=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?ThinWalls=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -139,7 +143,7 @@ def coloredMazeImgGenerator():
         pass
 
 def grayBrickMazeImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=false'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -156,7 +160,7 @@ def grayBrickMazeImgGenerator():
         pass
 
 def grayMazeImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=false&ThinWalls=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -173,7 +177,7 @@ def grayMazeImgGenerator():
         pass
 
 def coloredBrickMultiagentTronImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=true&ThinWalls=false&AllowBackTrack=false'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=false&AllowBackTrack=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -190,7 +194,7 @@ def coloredBrickMultiagentTronImgGenerator():
         pass
 
 def coloredMultiagentTronImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=true&ThinWalls=true&AllowBackTrack=false'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=true&AllowBackTrack=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -207,7 +211,7 @@ def coloredMultiagentTronImgGenerator():
         pass
 
 def coloredBrickDungeonImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=true&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -224,7 +228,7 @@ def coloredBrickDungeonImgGenerator():
         pass
 
 def brickDungeonImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=false&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -241,7 +245,7 @@ def brickDungeonImgGenerator():
         pass
 
 def coloredDungeonImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=true&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -258,7 +262,7 @@ def coloredDungeonImgGenerator():
         pass
 
 def dungeonImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/dungeonMazeImg?WithSolution=false&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -275,7 +279,7 @@ def dungeonImgGenerator():
         pass
 
 def avatarImgGenerator():
-    url='http://generator-microservices.pi-docker.lab/avatarImg'
+    url='http://'+host+':'+port+'/avatarImg'
     new_file, filename = tempfile.mkstemp(prefix="avatarImg",suffix=".png")
     response=requests.get(url, stream=True)
     try:
@@ -289,7 +293,7 @@ def avatarImgGenerator():
         os.remove(filename)
 
 def vCardGenerator():
-    url='http://generator-microservices.pi-docker.lab/vCard'
+    url='http://'+host+':'+port+'/vCard'
     new_file, filename = tempfile.mkstemp(prefix="vCard",suffix=".html")
     response=requests.get(url, stream=True)
     try:
@@ -324,7 +328,7 @@ def vCardGenerator():
 
 
 def iCalGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/iCal'
+    url = 'http://'+host+':'+port+'/iCal'
     new_file, filename = tempfile.mkstemp(prefix="iCal", suffix=".html")
     response = requests.get(url, stream=True)
     try:
@@ -360,7 +364,7 @@ def iCalGenerator():
 
 
 def dungeonMazeTextGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/dungeonMazeText'
+    url = 'http://'+host+':'+port+'/dungeonMazeText'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmaze", suffix=".html")
     response = requests.get(url, stream=True)
     try:
@@ -394,7 +398,7 @@ def dungeonMazeTextGenerator():
         pass
 
 def dungeonMazeTronTextGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/dungeonMazeText?TronMode=true'
+    url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
     response = requests.get(url, stream=True)
     try:
@@ -428,7 +432,7 @@ def dungeonMazeTronTextGenerator():
         pass
 
 def coloredDungeonMazeTronTextGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/dungeonMazeText?TronMode=true&AnsiEscapes=true'
+    url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=true&AnsiEscapes=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
     response = requests.get(url, stream=True)
     try:
@@ -464,7 +468,7 @@ def coloredDungeonMazeTronTextGenerator():
         pass
 
 def coloredDungeonMazeTextGenerator():
-    url = 'http://generator-microservices.pi-docker.lab/dungeonMazeText?TronMode=false&AnsiEscapes=true'
+    url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=false&AnsiEscapes=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
     response = requests.get(url, stream=True)
     try:
@@ -499,15 +503,36 @@ def coloredDungeonMazeTextGenerator():
         #os.remove(filename)
         pass
 
+def geoJsonGenerator():
+    url = 'http://'+host+':'+port+'/placemarkGeoJson?Maxx=15&Minx=-10&Miny=0'
+    response = requests.get(url)
+    response.encoding = 'UTF-8'
+    #print(response)
+    resp=response.json()
+    #print(resp)
+    strjson=str(resp).replace("\'", "\"")
+    resp=json.loads(strjson)
+    #print(resp)
+    jsonpretty=json.dumps(resp, indent=2, ensure_ascii=False).encode('utf8')
+    url = geojsonio.make_url(strjson)
+    #print(url)
+    mastodonmsg=jsonpretty.decode()+"\nAutomagically #generated #geojson feature renders here "+url+" https://github.com/elbosso/generator-microservices"
+    #print(mastodonmsg)
+    if shouldIReallyPost:
+        mastodon.status_post(mastodonmsg)
 
-generators=[coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
+
+generators=[geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
 def test():
-    coloredDungeonMazeTextGenerator()
+    geoJsonGenerator()
     pass
 def production():
     while True:
         index=random.randrange(len(generators))
-        generators[index]()
+        try:
+            generators[index]()
+        except:
+            pass
         now = datetime.datetime.today()
         future=datetime.datetime.today()
         future += datetime.timedelta(hours=random.randrange(14,36,1))
