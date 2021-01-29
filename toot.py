@@ -278,6 +278,23 @@ def dungeonImgGenerator():
         os.remove(filename)
         pass
 
+def nonRectangularDungeonImgGenerator():
+    url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true&EllipticShape=true'
+    new_file, filename = tempfile.mkstemp(prefix="nonRectangularDungeonImg",suffix=".png")
+    response=requests.get(url, stream=True)
+    try:
+        with os.fdopen(new_file, 'wb') as tmp:
+            # do stuff with temp file
+            tmp.write(response.content)
+        print(filename)
+        mastodonmsg = '#generated dungeon\nhttps://github.com/elbosso/generator-microservices'
+        print(mastodonmsg)
+        if shouldIReallyPost:
+            mastodon.status_post(mastodonmsg,media_ids=mastodon.media_post(filename,"image/png"))
+    finally:
+        os.remove(filename)
+        pass
+
 def avatarImgGenerator():
     url='http://'+host+':'+port+'/avatarImg'
     new_file, filename = tempfile.mkstemp(prefix="avatarImg",suffix=".png")
@@ -391,10 +408,10 @@ def dungeonMazeTextGenerator():
             if shouldIReallyPost:
                 mastodon.status_post(mastodonmsg, media_ids=mastodon.media_post(imgfilename, "image/png"))
         finally:
-            #os.remove(imgfilename)
+            os.remove(imgfilename)
             pass
     finally:
-        #os.remove(filename)
+        os.remove(filename)
         pass
 
 def dungeonMazeTronTextGenerator():
@@ -425,10 +442,10 @@ def dungeonMazeTronTextGenerator():
             if shouldIReallyPost:
                 mastodon.status_post(mastodonmsg, media_ids=mastodon.media_post(imgfilename, "image/png"))
         finally:
-            #os.remove(imgfilename)
+            os.remove(imgfilename)
             pass
     finally:
-        #os.remove(filename)
+        os.remove(filename)
         pass
 
 def coloredDungeonMazeTronTextGenerator():
@@ -461,10 +478,10 @@ def coloredDungeonMazeTronTextGenerator():
             if shouldIReallyPost:
                 mastodon.status_post(mastodonmsg, media_ids=mastodon.media_post(imgfilename, "image/png"))
         finally:
-            #os.remove(imgfilename)
+            os.remove(imgfilename)
             pass
     finally:
-        #os.remove(filename)
+        os.remove(filename)
         pass
 
 def coloredDungeonMazeTextGenerator():
@@ -497,10 +514,10 @@ def coloredDungeonMazeTextGenerator():
             if shouldIReallyPost:
                 mastodon.status_post(mastodonmsg, media_ids=mastodon.media_post(imgfilename, "image/png"))
         finally:
-            #os.remove(imgfilename)
+            os.remove(imgfilename)
             pass
     finally:
-        #os.remove(filename)
+        os.remove(filename)
         pass
 
 def geoJsonGenerator():
@@ -521,10 +538,105 @@ def geoJsonGenerator():
     if shouldIReallyPost:
         mastodon.status_post(mastodonmsg)
 
+def quotationGenerator():
+    url = 'http://'+host+':'+port+'/quotation'
+    response = requests.get(url)
+    response.encoding = 'UTF-8'
+    #print(response)
+    resp=response.json()
+    #print(resp)
+    strjson=str(resp).replace("\'", "\"")
+    resp=json.loads(strjson)
+    #print(resp)
+    jsonpretty=json.dumps(resp, indent=2, ensure_ascii=False).encode('utf8')
+    mastodonmsg=jsonpretty.decode()+"\nAutomagically #selected #quotation  https://github.com/elbosso/generator-microservices"
+    print(mastodonmsg)
+    if shouldIReallyPost:
+        mastodon.status_post(mastodonmsg)
 
-generators=[geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
+def texEquationGenerator():
+    url = 'http://'+host+':'+port+'/texEquationSourceCode'
+    response = requests.get(url)
+
+    formula=response.content.decode('utf8',errors='ignore').replace('"', '').replace('\\\\','\\')
+    #print(formula)
+    mastodonmsg=formula+"\nAutomagically #generated #TeX equation  https://github.com/elbosso/generator-microservices"
+    print(mastodonmsg)
+    if shouldIReallyPost:
+        mastodon.status_post(mastodonmsg)
+
+def wangDominoImgGenerator():
+    url='http://'+host+':'+port+'/wangDominoTilingImg'
+    new_file, filename = tempfile.mkstemp(prefix="wangDominoTilingImg",suffix=".png")
+    response=requests.get(url, stream=True)
+    try:
+        with os.fdopen(new_file, 'wb') as tmp:
+            # do stuff with temp file
+            tmp.write(response.content)
+        print(filename)
+        mastodonmsg = '#generated wang #tiling\nhttps://github.com/elbosso/generator-microservices'
+        print(mastodonmsg)
+        if shouldIReallyPost:
+            mastodon.status_post(mastodonmsg,media_ids=mastodon.media_post(filename,"image/png"))
+    finally:
+        os.remove(filename)
+        pass
+
+def tunnelImgGenerator():
+    url='http://'+host+':'+port+'/tunnelImg?Mode=3'
+    new_file, filename = tempfile.mkstemp(prefix="tunnelImg",suffix=".png")
+    response=requests.get(url, stream=True)
+    try:
+        with os.fdopen(new_file, 'wb') as tmp:
+            # do stuff with temp file
+            tmp.write(response.content)
+        print(filename)
+        mastodonmsg = '#generated tunnel made from simple geometric primitives in 3D\nhttps://github.com/elbosso/generator-microservices'
+        print(mastodonmsg)
+        if shouldIReallyPost:
+            mastodon.status_post(mastodonmsg,media_ids=mastodon.media_post(filename,"image/png"))
+    finally:
+        os.remove(filename)
+        pass
+
+def tunnelOvalImgGenerator():
+    url='http://'+host+':'+port+'/tunnelImg?Mode=7'
+    new_file, filename = tempfile.mkstemp(prefix="tunnelOvalImg",suffix=".png")
+    response=requests.get(url, stream=True)
+    try:
+        with os.fdopen(new_file, 'wb') as tmp:
+            # do stuff with temp file
+            tmp.write(response.content)
+        print(filename)
+        mastodonmsg = '#generated tunnel made from simple geometric primitives in 3D\nhttps://github.com/elbosso/generator-microservices'
+        print(mastodonmsg)
+        if shouldIReallyPost:
+            mastodon.status_post(mastodonmsg,media_ids=mastodon.media_post(filename,"image/png"))
+    finally:
+        os.remove(filename)
+        pass
+
+def truchetTilingImgGenerator():
+    url='http://'+host+':'+port+'/truchetTilingImg'
+    new_file, filename = tempfile.mkstemp(prefix="truchetTilingImg",suffix=".png")
+    response=requests.get(url, stream=True)
+    try:
+        with os.fdopen(new_file, 'wb') as tmp:
+            # do stuff with temp file
+            tmp.write(response.content)
+        print(filename)
+        mastodonmsg = '#generated multiscale truchet #tiling\nhttps://github.com/elbosso/generator-microservices'
+        print(mastodonmsg)
+        if shouldIReallyPost:
+            mastodon.status_post(mastodonmsg,media_ids=mastodon.media_post(filename,"image/png"))
+    finally:
+        os.remove(filename)
+        pass
+
+
+generators=[truchetTilingImgGenerator,tunnelOvalImgGenerator,tunnelImgGenerator,wangDominoImgGenerator,texEquationGenerator,nonRectangularDungeonImgGenerator,quotationGenerator,geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
 def test():
-    geoJsonGenerator()
+    truchetTilingImgGenerator()
     pass
 def production():
     while True:
