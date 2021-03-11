@@ -78,7 +78,6 @@ def fakeIdentityGenerator():
             # do stuff with temp file
             tmp.write("<html style=\"html {font-size: 8px;}\"><head><meta charset=\"utf-8\"/></head><body><pre>"+jsonpretty.decode()+"</pre></body></html>")
         print(filename)
-        mastodon.status_post('random dungeonMazeImg',media_ids=mastodon.media_post(filename,"image/png"))
         new_img_file, imgfilename = tempfile.mkstemp(prefix="fakeIdentity",suffix=".png")
         options = {
                 'format': 'png',
