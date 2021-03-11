@@ -7,6 +7,9 @@ COPY requirements.txt ./
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 FROM python:3.8-slim
+
+RUN apt update && apt upgrade -y && apt install -y wkhtmltopdf xvfb
+
 WORKDIR /usr/src/app
 
 # copy only the dependencies installation from the 1st stage image

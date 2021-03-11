@@ -638,7 +638,8 @@ def truchetTilingImgGenerator():
 
 generators=[truchetTilingImgGenerator,tunnelOvalImgGenerator,tunnelImgGenerator,wangDominoImgGenerator,texEquationGenerator,nonRectangularDungeonImgGenerator,quotationGenerator,geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
 def test():
-    truchetTilingImgGenerator()
+    coloredDungeonMazeTronTextGenerator()
+    #truchetTilingImgGenerator()
     pass
 def production():
     while True:
