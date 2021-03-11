@@ -12,6 +12,8 @@ import datetime
 from ansi2html import Ansi2HTMLConverter
 import geojsonio
 
+#print (__name__)
+
 
 # https://shkspr.mobi/blog/2018/08/easy-guide-to-building-mastodon-bots/
 # view files in /tmp: cd /tmp && python -m SimpleHTTPServer 8080
@@ -652,6 +654,7 @@ def production():
         print(future)
         time.sleep((future-now).total_seconds())
 
+#print (__name__)
 if __name__ == '__main__':
     print("production")
     shouldIReallyPost=True
