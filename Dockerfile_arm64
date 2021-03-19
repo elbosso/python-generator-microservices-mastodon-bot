@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir --user -r requirements.txt
 
 FROM python:3.8-slim
 
-RUN apt update && apt upgrade -y && apt install -y wkhtmltopdf xvfb
+RUN apt-get update && apt-get upgrade -y && apt-get install -y wkhtmltopdf xvfb
 
 WORKDIR /usr/src/app
 

@@ -634,10 +634,21 @@ def truchetTilingImgGenerator():
         os.remove(filename)
         pass
 
+def colorGenerator():
+    url = 'http://'+host+':'+port+'/color'
+    response = requests.get(url)
+    response.encoding = 'UTF-8'
+    resp=response.json()
+    resp=json.loads(str(resp).replace("\'", "\""))
+    jsonpretty=json.dumps(resp, indent=2, ensure_ascii=False).encode('utf8')
+    mastodonmsg=jsonpretty.decode()+"\nAutomagically #generated #random colors https://github.com/elbosso/generator-microservices"
+    print(mastodonmsg,len(mastodonmsg))
+    if shouldIReallyPost:
+        mastodon.status_post(mastodonmsg)
 
-generators=[truchetTilingImgGenerator,tunnelOvalImgGenerator,tunnelImgGenerator,wangDominoImgGenerator,texEquationGenerator,nonRectangularDungeonImgGenerator,quotationGenerator,geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator]
+generators=[truchetTilingImgGenerator,tunnelOvalImgGenerator,tunnelImgGenerator,wangDominoImgGenerator,texEquationGenerator,nonRectangularDungeonImgGenerator,quotationGenerator,geoJsonGenerator,coloredDungeonMazeTextGenerator,coloredDungeonMazeTronTextGenerator,dungeonMazeTextGenerator,dungeonMazeTronTextGenerator,dungeonImgGenerator,coloredDungeonImgGenerator,brickDungeonImgGenerator,coloredBrickDungeonImgGenerator,coloredMultiagentTronImgGenerator,coloredBrickMultiagentTronImgGenerator,grayMazeImgGenerator,grayBrickMazeImgGenerator,coloredBrickMazeImgGenerator,creditCardGenerator,vCardGenerator,iCalGenerator,avatarImgGenerator,coloredMazeImgGenerator,guruProfessionGenerator,clickBaitGenerator,fakeIdentityGenerator,colorGenerator]
 def test():
-    coloredDungeonMazeTronTextGenerator()
+    colorGenerator()
     #truchetTilingImgGenerator()
     pass
 def production():
