@@ -28,7 +28,10 @@ port=os.environ['GENERATOR_MICROSERVICES_PORT']
 
 def guruProfessionGenerator():
     url = 'http://'+host+':'+port+'/guruProfession'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     guruProfession=response.content.decode('utf8',errors='ignore').replace('"', '')
     print(guruProfession)
     mastodonmsg=guruProfession+"\nAutomagically #generated profession (probably best suited for #roleplaying characters) https://github.com/elbosso/generator-microservices"
@@ -38,8 +41,10 @@ def guruProfessionGenerator():
 
 def clickBaitGenerator():
     url = 'http://'+host+':'+port+'/clickBait'
-    response = requests.get(url)
-
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     clickbait=response.content.decode('utf8',errors='ignore').replace('"', '')
     print(clickbait)
     googlesearch="https://www.google.com/search?query="+quote(clickbait, safe='')
@@ -51,7 +56,10 @@ def clickBaitGenerator():
 
 def creditCardGenerator():
     url = 'http://'+host+':'+port+'/creditCard'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     response.encoding = 'UTF-8'
     resp=response.json()
     resp=json.loads(str(resp).replace("\'", "\""))
@@ -63,7 +71,10 @@ def creditCardGenerator():
 
 def fakeIdentityGenerator():
     url = 'http://'+host+':'+port+'/fakeIdentity'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     response.encoding = 'UTF-8'
     resp=response.json()
     #print(resp)
@@ -112,7 +123,10 @@ def fakeIdentityGenerator():
 def coloredBrickMazeImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -129,7 +143,10 @@ def coloredBrickMazeImgGenerator():
 def coloredMazeImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?ThinWalls=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -146,7 +163,10 @@ def coloredMazeImgGenerator():
 def grayBrickMazeImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -163,7 +183,10 @@ def grayBrickMazeImgGenerator():
 def grayMazeImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -180,7 +203,10 @@ def grayMazeImgGenerator():
 def coloredBrickMultiagentTronImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=false&AllowBackTrack=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -197,7 +223,10 @@ def coloredBrickMultiagentTronImgGenerator():
 def coloredMultiagentTronImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=true&AllowBackTrack=false'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -214,7 +243,10 @@ def coloredMultiagentTronImgGenerator():
 def coloredBrickDungeonImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -231,7 +263,10 @@ def coloredBrickDungeonImgGenerator():
 def brickDungeonImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=false&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -248,7 +283,10 @@ def brickDungeonImgGenerator():
 def coloredDungeonImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=true&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -265,7 +303,10 @@ def coloredDungeonImgGenerator():
 def dungeonImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonMazeImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -282,7 +323,10 @@ def dungeonImgGenerator():
 def nonRectangularDungeonImgGenerator():
     url='http://'+host+':'+port+'/dungeonMazeImg?WithSolution=false&ThinWalls=true&OnlyRectangularRooms=false&AllowBackTrack=true&WithRooms=true&EllipticShape=true'
     new_file, filename = tempfile.mkstemp(prefix="nonRectangularDungeonImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -299,7 +343,10 @@ def nonRectangularDungeonImgGenerator():
 def avatarImgGenerator():
     url='http://'+host+':'+port+'/avatarImg'
     new_file, filename = tempfile.mkstemp(prefix="avatarImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -313,7 +360,10 @@ def avatarImgGenerator():
 def vCardGenerator():
     url='http://'+host+':'+port+'/vCard'
     new_file, filename = tempfile.mkstemp(prefix="vCard",suffix=".html")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s=response.content.decode('utf8',errors='ignore').replace("\\r\\n","\n")
         s=s[0:s.find("PHOTO;")]
@@ -348,7 +398,10 @@ def vCardGenerator():
 def iCalGenerator():
     url = 'http://'+host+':'+port+'/iCal'
     new_file, filename = tempfile.mkstemp(prefix="iCal", suffix=".html")
-    response = requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s = response.content.decode('utf8', errors='ignore').replace("\\r\\n", "\n")
         s = s[0:s.find("ATTACH;")]
@@ -384,7 +437,10 @@ def iCalGenerator():
 def dungeonMazeTextGenerator():
     url = 'http://'+host+':'+port+'/dungeonMazeText'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmaze", suffix=".html")
-    response = requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s = response.content.decode('utf8', errors='ignore').replace("\\n", "\n").replace("\"","")
         with os.fdopen(new_file, 'w') as tmp:
@@ -418,7 +474,10 @@ def dungeonMazeTextGenerator():
 def dungeonMazeTronTextGenerator():
     url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
-    response = requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s = response.content.decode('utf8', errors='ignore').replace("\\n", "\n").replace("\"","")
         with os.fdopen(new_file, 'w') as tmp:
@@ -452,7 +511,10 @@ def dungeonMazeTronTextGenerator():
 def coloredDungeonMazeTronTextGenerator():
     url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=true&AnsiEscapes=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
-    response = requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s = response.content.decode('utf8', errors='ignore').replace("\\n", "\n").replace("\"","").replace("\\u001B","\u001B")
         #print(s)
@@ -488,7 +550,10 @@ def coloredDungeonMazeTronTextGenerator():
 def coloredDungeonMazeTextGenerator():
     url = 'http://'+host+':'+port+'/dungeonMazeText?TronMode=false&AnsiEscapes=true'
     new_file, filename = tempfile.mkstemp(prefix="dungeonmazetron", suffix=".html")
-    response = requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         s = response.content.decode('utf8', errors='ignore').replace("\\n", "\n").replace("\"","").replace("\\u001B","\u001B")
         #print(s)
@@ -523,7 +588,10 @@ def coloredDungeonMazeTextGenerator():
 
 def geoJsonGenerator():
     url = 'http://'+host+':'+port+'/placemarkGeoJson?Maxx=15&Minx=-10&Miny=0'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     response.encoding = 'UTF-8'
     #print(response)
     resp=response.json()
@@ -541,7 +609,10 @@ def geoJsonGenerator():
 
 def quotationGenerator():
     url = 'http://'+host+':'+port+'/quotation'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     response.encoding = 'UTF-8'
     #print(response)
     resp=response.json()
@@ -557,8 +628,10 @@ def quotationGenerator():
 
 def texEquationGenerator():
     url = 'http://'+host+':'+port+'/texEquationSourceCode'
-    response = requests.get(url)
-
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     formula=response.content.decode('utf8',errors='ignore').replace('"', '').replace('\\\\','\\')
     #print(formula)
     mastodonmsg=formula+"\nAutomagically #generated #TeX equation  https://github.com/elbosso/generator-microservices"
@@ -569,7 +642,10 @@ def texEquationGenerator():
 def wangDominoImgGenerator():
     url='http://'+host+':'+port+'/wangDominoTilingImg'
     new_file, filename = tempfile.mkstemp(prefix="wangDominoTilingImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -586,7 +662,10 @@ def wangDominoImgGenerator():
 def tunnelImgGenerator():
     url='http://'+host+':'+port+'/tunnelImg?Mode=3'
     new_file, filename = tempfile.mkstemp(prefix="tunnelImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -603,7 +682,10 @@ def tunnelImgGenerator():
 def tunnelOvalImgGenerator():
     url='http://'+host+':'+port+'/tunnelImg?Mode=7'
     new_file, filename = tempfile.mkstemp(prefix="tunnelOvalImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -620,7 +702,10 @@ def tunnelOvalImgGenerator():
 def truchetTilingImgGenerator():
     url='http://'+host+':'+port+'/truchetTilingImg'
     new_file, filename = tempfile.mkstemp(prefix="truchetTilingImg",suffix=".png")
-    response=requests.get(url, stream=True)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url, stream=True,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url, stream=True)
     try:
         with os.fdopen(new_file, 'wb') as tmp:
             # do stuff with temp file
@@ -636,7 +721,10 @@ def truchetTilingImgGenerator():
 
 def colorGenerator():
     url = 'http://'+host+':'+port+'/color'
-    response = requests.get(url)
+    if os.path.isfile('/run/secrets/cert-chain.pem'):
+        response = requests.get(url,verify='/run/secrets/cert-chain.pem')
+    else:
+        response = requests.get(url)
     response.encoding = 'UTF-8'
     resp=response.json()
     resp=json.loads(str(resp).replace("\'", "\""))
