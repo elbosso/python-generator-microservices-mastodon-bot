@@ -744,8 +744,9 @@ def production():
         index=random.randrange(len(generators))
         try:
             generators[index]()
-        except:
-            pass
+        except Exception as e:
+            print("Oops!", e.__class__, "occurred.")
+            print("error: {0}".format(e))
         now = datetime.datetime.today()
         future=datetime.datetime.today()
         future += datetime.timedelta(hours=random.randrange(14,36,1))
